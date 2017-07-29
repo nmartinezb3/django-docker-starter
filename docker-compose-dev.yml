@@ -1,0 +1,31 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=abogado
+      - POSTGRES_PASSWORD=abogadopass
+    volumes_from:
+      - postgres-data
+
+  postgres-data:
+    image: postgres:9.6
+    command: rompete
+
+  django:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile-dev
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend/:/src
+    environment:
+      - DATABASE_NAME=abogado
+      - DATABASE_USERNAME=abogado
+      - DATABASE_PASSWORD=abogadopass
+      - DATABASE_PORT=5432
+      - MEDIA_DIR=/usr/development/media
+    ports:
+      - "8000:8000"
+    links:
+      - postgres

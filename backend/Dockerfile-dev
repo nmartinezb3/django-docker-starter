@@ -1,0 +1,7 @@
+FROM python:3.5
+ENV PYTHONUNBUFFERED 1
+RUN mkdir /src
+COPY requirements.txt /src/
+RUN pip install -r /src/requirements.txt
+ADD . /src/
+WORKDIR /src

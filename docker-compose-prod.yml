@@ -1,0 +1,36 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/src
+      - ./config/nginx:/etc/nginx/conf.d
+      - /static:/static
+    depends_on:
+      - django
+  django:
+    restart: always
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile-prod
+    command: bash -c "python manage.py migrate && gunicorn backend.wsgi -b 0.0.0.0:8000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/src
+      - /static:/static
+    environment:
+      - DATABASE_NAME=abogado
+      - DATABASE_USERNAME=abogado
+      - DATABASE_PASSWORD=abogadopass
+      - DATABASE_PORT=5432
+      - MEDIA_DIR=/usr/development/media
+    expose:
+      - "8000"
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres

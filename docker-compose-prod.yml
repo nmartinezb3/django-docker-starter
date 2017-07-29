@@ -34,3 +34,9 @@ services:
   postgres:
     image: postgres:latest
     container_name: postgres
+    environment:
+      - DATABASE_NAME=abogado
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+    volumes:
+      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d

@@ -3,7 +3,7 @@ services:
   postgres:
     image: postgres:9.6
     environment:
-      - POSTGRES_USER=abogado
+      - POSTGRES_USER=abogado2
       - POSTGRES_PASSWORD=abogadopass
     volumes_from:
       - postgres-data
@@ -20,8 +20,8 @@ services:
     volumes:
       - ./backend/:/src
     environment:
-      - DATABASE_NAME=abogado
-      - DATABASE_USERNAME=abogado
+      - DATABASE_NAME=abogado1
+      - DATABASE_USERNAME=abogado1
       - DATABASE_PASSWORD=abogadopass
       - DATABASE_PORT=5432
       - MEDIA_DIR=/usr/development/media

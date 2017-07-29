@@ -1,5 +1,0 @@
-DB_NAME=abogado
-DB_USER=abogado
-DB_PASS=abogadopass
-DB_SERVICE=postgres
-DB_PORT=5432

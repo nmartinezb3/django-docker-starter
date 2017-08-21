@@ -3,14 +3,14 @@ services:
   postgres:
     image: postgres:9.6
     environment:
-      - POSTGRES_USER=abogado2
-      - POSTGRES_PASSWORD=abogadopass
+      - DATABASE_NAME=db_name
+      - POSTGRES_USER=db_user
+      - POSTGRES_PASSWORD=db_password
     volumes_from:
       - postgres-data
 
   postgres-data:
     image: postgres:9.6
-    command: rompete
 
   django:
     build:
@@ -20,9 +20,9 @@ services:
     volumes:
       - ./backend/:/src
     environment:
-      - DATABASE_NAME=abogado1
-      - DATABASE_USERNAME=abogado1
-      - DATABASE_PASSWORD=abogadopass
+      - DATABASE_NAME=db_name
+      - DATABASE_USERNAME=db_user
+      - DATABASE_PASSWORD=db_password
       - DATABASE_PORT=5432
       - MEDIA_DIR=/usr/development/media
     ports:
